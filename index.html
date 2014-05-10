@@ -10,7 +10,13 @@
           rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEGTX8P0N1ODdh8zbGuSn0pbJwzdvWvOA&sensor=true&libraries=places">
+    </script>
+    <script src="/aks.js"></script>
     <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
+    <script src="/BpTspSolver.js"></script>
+
     <style type="text/css">
       /* Large desktop */
       @media (min-width: 980px) { 
@@ -63,7 +69,9 @@
        }
       .actions{
          background-color: #343434;
-         padding: 3% 0%;
+         padding: 3% 1%;
+         height: 400px;
+         width: 100px;
        }
      .statistics h3, .statistics p {
         color: white;
@@ -120,6 +128,8 @@
       }   
     </style>
 <script type="text/javascript">
+ google.maps.event.addDomListener(window, 'load', initialize);
+
 $(document).ready(function(){
 	var id = 2,max = 8,append_data;
 	
@@ -168,7 +178,7 @@ $(document).ready(function(){
   <span class="icon-bar"></span>
   <span class="icon-bar"></span>
   </button>
-  <a class="brand" href="#">Bitstarter</a>
+  <a class="brand" href="#">Hackaway</a>
   <div class="nav-collapse collapse">
   <ul class="nav">
   <li class="active"><a href="#">Home</a></li>
@@ -202,13 +212,13 @@ $(document).ready(function(){
  <div id="text_boxes" style="width:300px;height:auto;">
 <div id="txt_1" class="txt_div">
 <div class="left">
-<p>Source: </p> <input type="text" name="source"><br>
+<p>Source: </p> <input type="text" class="controls" name="source" id="pac-source" placeholder="Enter Source"><br>
       <p>Destinations:</p>
-<input type="text" id="input_1" name="txtval1"/>
-<input type="text" id="input_1" name="txtval2"/>
-<input type="text" id="input_1" name="txtval3"/>
-<input type="text" id="input_1" name="txtval4"/>
-<input type="text" id="input_1" name="txtval5"/>
+<fieldset id="textBox">
+<input type ="text" id="pac-input" class="controls" placeholder="Start Typing Here" name="txtval6"/>
+
+</fieldset>
+
 <!--<img src="/add.png" class="add"/>-->
 </div>
 <div class="right">
@@ -217,28 +227,13 @@ $(document).ready(function(){
 </div>
 
 <div style="clear:left;"></div>
-<input type="button" value="SUBMIT" class="button" onclick="javascript:alert($('#form').serialize());"> 
+<input type="button" value="SUBMIT" class="button" id="calcRoute"> 
 </form>
 
   </div>
 
   <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
-  <div class="span5 actions">
-  <div class="span8 offset2">
-  <div class="statistics">
-  <div class="span4">
-  <!-- linediv-l and linediv-r give dividing lines that look
-  different in horizontal and vertical layouts, illustrating
-  media queries. -->
-  </div>
-  <div class="span4">
-  <div class="span4">
-  </div>
-  </div>
-  </div>
-
-
-  </div>
+  <div class="span5 actions" id="map-canvas" >
   </div>
 
 
@@ -289,7 +284,7 @@ $(document).ready(function(){
       put at the bottom of the page.</p>
       </div>
       </div>
-
+      <div id="my_textual_div"> </div>
 </div>
   </body>
 </html>
