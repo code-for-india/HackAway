@@ -52,6 +52,11 @@
         font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
 	text-align: center;
        }
+.one, .two {
+    height: 200px;
+    width: 150px;
+}
+
       p.lead {
         padding-top: 2%;
         font-size: 24px;
@@ -113,6 +118,22 @@
         border-color:#9ecaed;
         box-shadow:0 0 10px #9ecaed;
       }
+
+
+.fake{ 
+    position: absolute;
+    top:0;
+    width : 100%;
+    background-color: white;
+}
+
+input[type='file'] {
+  opacity:1    
+}
+
+
+
+
       form .button{
 	background: -moz-linear-gradient(top,  #00b7ea 21%, #009ec3 76%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(21%,#00b7ea), color-stop(76%,#009ec3)); /* Chrome,Safari4+ */
@@ -218,16 +239,21 @@ $(document).ready(function(){
 <input type ="text" id="pac-input" class="controls" placeholder="Start Typing Here" name="txtval6"/>
 
 </fieldset>
+<div class="one">
+<input type="button" value="Route" class="button" id="calcRoute"> 
+</div>
+<div class="two">
 
+<input type="file" id="files" class="file" name="files[]"/>
+
+
+</div>
 <!--<img src="/add.png" class="add"/>-->
 </div>
-<div class="right">
-</div>
 </div>
 </div>
 
-<div style="clear:left;"></div>
-<input type="button" value="SUBMIT" class="button" id="calcRoute"> 
+
 </form>
 
   </div>

@@ -130,6 +130,94 @@ function initialize() {
 	but.addEventListener('click', function(event) {
 			calcRoute();
 			});
+
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+
+output = {}
+
+   function calcRouteAks(){
+      select = document.getElementById("routeSelect");
+      var rtName = select.value;
+      var schools = output[rtName].schools;
+      var kitchen = output[rtName].kitchen;
+      tsp.addWaypoint(new google.maps.LatLng(parseFloat(kitchen[0]),parseFloat(kitchen[1])));
+      
+      for(i=0;i<schools.length;i++){
+   //      if(schools[i][0] or schools[i][1] ) {
+   //        continue;
+    //     }
+         tsp.addWaypoint(new google.maps.LatLng(parseFloat(schools[i][0]),parseFloat(schools[i][1])));
+      }      
+      tsp.setAvoidHighways(false);
+      tsp.setTravelMode(google.maps.DirectionsTravelMode.DRIVING);
+      tsp.solveRoundTrip(onSolveCallBack);  
+   };
+
+
+
+function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+
+    for (var i=1; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+            if(output[data[7]] == undefined ) output[data[7]]={"schools":[],"kitchen":null}
+            output[data[7]]["schools"].push([data[3],data[4]])
+            output[data[7]]["kitchen"]=[data[9],data[10]]
+
+        }
+    }
+
+   var aks = document.getElementsByClassName("two");
+   var select =document.createElement('select');
+   select.id="routeSelect";
+   for(var i in output) {
+    var option = document.createElement('option');
+    option.text = i;
+    select.add(option, 0);
+   }
+
+   var btn = document.createElement('input');
+   btn.setAttribute('type','button');
+   btn.setAttribute('name','button');
+   btn.setAttribute('value','Route');
+   btn.setAttribute('id','aksButton');
+  
+   aks.item().appendChild(select);
+   aks.item().appendChild(btn);
+   btn = document.getElementById("aksButton");
+   btn.addEventListener('click', function(event) {
+			calcRouteAks();
+			});
+
+}
+
+
+ function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    f = files[0];
+//    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+//                    f.size, ' bytes, last modified: ',
+//                    f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+//                   '</li>');
+    var reader = new FileReader();
+    var name = f.name;
+    reader.onload = function(e){
+      var data = e.target.result;
+       processData(data);
+     };
+    reader.readAsText(f);
+//    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+  }
+
+
+
 }
 
 
