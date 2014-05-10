@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ask Me</title>
+    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap-combined.no-icons.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,300,400,600,700,800" 
+          rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fjquery.js"></script>
+    <script src="https://d396qusza40orc.cloudfront.net/startup%2Fcode%2Fbootstrap.js"></script>
+    <style type="text/css">
+      /* Large desktop */
+      @media (min-width: 980px) { 
+        body {
+         padding-top: 60px;
+        }
+       .linediv-l {
+         border-right: 1px white solid;
+        }
+       .linediv-r {
+         border-left: 1px white solid;
+       }
+      }
+
+      /* Landscape phones and down */
+      @media (max-width: 480px) { 
+       .copy {
+         padding: 2.5% 10%;
+       }
+       .linediv-l {
+         border-bottom: 1px white solid;
+       }
+       .linediv-r {
+         border-top: 1px white solid;
+       }
+      } 
+
+
+      body{
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      }
+      .heading, .subheading {
+        font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
+	text-align: center;
+       }
+      p.lead {
+        padding-top: 2%;
+        font-size: 24px;
+        line-height: 30px;
+       }
+      p {
+        font-size: 18px;
+        line-height: 24px;
+       }
+      .pitch {
+         padding: 2.5% 0%;
+       }
+      .order {
+        padding: 2% 0%;
+       }
+      .actions{
+         background-color: #343434;
+         padding: 3% 0%;
+       }
+     .statistics h3, .statistics p {
+        color: white;
+      }
+      .video, .thermometer, .order, .social ,.statistics{
+       text-align: center;
+      }
+          /* Marketing Copy and Footer */
+      .copy {
+        padding-top: 2.5%;
+        padding-bottom: 2.5%;
+        text-align: justify;
+      }
+      .asset {
+        padding: 2.5% 0%;
+      }
+      .footer {
+        color: #cccccc;
+        text-align: center;
+      }
+      .footer p {
+        font-size: 11px;
+      }
+      .footer a {
+        color: #ccccff;
+      }
+      div.row {
+        border: 1px solid;
+      }
+      form input{
+	border:2px solid #dadada;
+        border-radius:7px;
+        font-size:20px;
+        padding:5px;
+	width:250px;
+      }
+      input:focus { 
+        outline:none;
+        border-color:#9ecaed;
+        box-shadow:0 0 10px #9ecaed;
+      }
+      form .button{
+	background: -moz-linear-gradient(top,  #00b7ea 21%, #009ec3 76%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(21%,#00b7ea), color-stop(76%,#009ec3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #00b7ea 21%,#009ec3 76%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #00b7ea 21%,#009ec3 76%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #00b7ea 21%,#009ec3 76%); /* IE10+ */
+	background: linear-gradient(to bottom,  #00b7ea 21%,#009ec3 76%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-9 */
+	color:#DFE9EC;
+	border:none;
+	cursor:pointer;
+	padding:7px;
+      }   
+    </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	var id = 2,max = 8,append_data;
+	
+	/*If the add icon was clicked*/
+	$("img.add").on('click',function(){
+		if($("div[id^='txt_']").length <8){ //Don't add new textbox if max limit exceed
+		$(this).remove(); //remove the add icon from current text box
+		var append_data = '<div id="txt_'+id+'" class="txt_div" style="display:none;"><div class="left"><input type="text" id="input_'+id+'" name="txtval[]"/></div><div class="right"><img src="add.png" class="add"/> <img src="/remove.png" class="remove"/></div></div>';
+		$("#text_boxes").append(append_data); //append new text box in main div
+                $("#txt_"+id) //display block appended text box with silde down
+		id++;
+		} else {
+			alert("Maximum 8 textboxes are allowed");
+		}
+	})
+	
+	/*If remove icon was clicked*/
+	$("img.remove").on('click',function(){
+		var prev_obj = $(this).parents().eq(1).prev().attr('id');  //previous div id of this text box
+		$(this).parents().eq(1).slideUp('medium',function() { $(this).remove(); //remove this text box with slide up
+		if($("div[id^='txt_']").length > 1){
+			append_data = '<img src="/remove.png" class="remove"/>'; //Add remove icon if number of text boxes are greater than 1
+		}else{
+			append_data = '';
+		}
+		if($(".add").length < 1){
+			$("#"+prev_obj+" .right").html('<img src="/add.png" class="add"/> '+append_data);
+		}
+		});
+		
+	})
+});
+
+
+</script>
+  </head>
+  <body>
+  <!-- Mobile-friendly navbar adapted from example. -->
+  <!-- http://twitter.github.io/bootstrap/examples/starter-template.html -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+  <div class="container">
+  <button type="button" class="btn btn-navbar"
+  data-toggle="collapse" data-target=".nav-collapse">
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  </button>
+  <a class="brand" href="#">Bitstarter</a>
+  <div class="nav-collapse collapse">
+  <ul class="nav">
+  <li class="active"><a href="#">Home</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#contact">Contact</a></li>
+  </ul>
+  </div><!--/.nav-collapse -->
+  </div>
+  </div>
+  </div>
+
+  <div class="container">
+  <div class="row-fluid heading">
+  <div class="span12">
+  <h1>Akshaya Patra</h1>
+  <h2>Delivery and Route Optimization</h2>
+  </div>
+  </div>
+
+  <div class="row-fluid subheading"> 
+  <div class="span12">
+  <p class="lead">Give Kitchen location as source and destinations to get optimal route</p>
+  </div>
+  </div>
+
+
+
+  <div class="row-fluid pitch">
+  <div class="span5 offset1">
+      <form id="form" name="form">
+ <div id="text_boxes" style="width:300px;height:auto;">
+<div id="txt_1" class="txt_div">
+<div class="left">
+<p>Source: </p> <input type="text" name="source"><br>
+      <p>Destinations:</p>
+<input type="text" id="input_1" name="txtval1"/>
+<input type="text" id="input_1" name="txtval2"/>
+<input type="text" id="input_1" name="txtval3"/>
+<input type="text" id="input_1" name="txtval4"/>
+<input type="text" id="input_1" name="txtval5"/>
+<!--<img src="/add.png" class="add"/>-->
+</div>
+<div class="right">
+</div>
+</div>
+</div>
+
+<div style="clear:left;"></div>
+<input type="button" value="SUBMIT" class="button" onclick="javascript:alert($('#form').serialize());"> 
+</form>
+
+  </div>
+
+  <!-- We define a new 'actions' div to contain statistics, order, and share buttons.-->
+  <div class="span5 actions">
+  <div class="span8 offset2">
+  <div class="statistics">
+  <div class="span4">
+  <!-- linediv-l and linediv-r give dividing lines that look
+  different in horizontal and vertical layouts, illustrating
+  media queries. -->
+  </div>
+  <div class="span4">
+  <div class="span4">
+  </div>
+  </div>
+  </div>
+
+
+  </div>
+  </div>
+
+
+
+      <!-- For the FAQ, we introduce a little bit of JS, using the accordion. -->
+      <!-- This brings in jquery.js and bootstrap.js as dependencies. -->
+      <!-- http://twitter.github.io/bootstrap/javascript.html#collapse -->
+      <div class="row-fluid faq">
+      <div class="span10 offset1">
+      <h3>FAQ</h3>
+      <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+      <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse"
+      data-parent="#accordion2" href="#collapseOne">
+       Can I share questions on the web? 
+      </a>
+      </div>
+      <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+       Yes, you can share the questions, on sharing the particular QnA will be made socially visible, for a week.
+      </div>
+      </div>
+      </div>
+      <div class="accordion-group">
+      <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse"
+      data-parent="#accordion2" href="#collapseTwo">
+      Will the questions be protected from public view?
+      </a>
+      </div>
+      <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
+      Yes, beehive is meant for your personal queries. 
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+      <!-- Not crucial, but we put this under a CC By-SA 3.0 license. -->
+      <!-- http://creativecommons.org/licenses/ -->
+      <div class="row-fluid footer">
+      <div class="span12">
+      <p>This work is licensed under
+      the <a href="http://creativecommons.org/licenses/by-sa/3.0/">CC
+      By-SA 3.0
+      </a>, without all the cruft that would otherwise be
+      put at the bottom of the page.</p>
+      </div>
+      </div>
+
+</div>
+  </body>
+</html>
+
+
