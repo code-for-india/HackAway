@@ -50,10 +50,11 @@ function initialize() {
 		for (var i = 0; i < temp.routes[0].legs.length; ++i) {
 			var route = temp.routes[0].legs[i];
 			var myPt1 = route.end_location;
+                        
 			//        if (i == dir.legs.length - 1 && mode == 0) {
 			//            myIcn1 = new google.maps.MarkerImage("iconsnew/black1.png");
 			//        } else {
-			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+i)+"|FF0000|FFFFFF");
+			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+18)+"|FF0000|FFFFFF");
 			//        }
 			var marker = new google.maps.Marker({
 					position: myPt1,
@@ -61,7 +62,13 @@ function initialize() {
 					map: map });
 
 		}
-               src_marker.setPosition(arr[0].geometry.location); 
+       
+ 			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+10)+"|FF0000|FFFFFF");       
+			var marker = new google.maps.Marker({
+					position: src,
+					map: map,
+                                         icon:myIcn1 });
+
 
 	};
 
@@ -143,7 +150,16 @@ output = {}
       var schools = output[rtName].schools;
       var kitchen = output[rtName].kitchen;
       tsp.addWaypoint(new google.maps.LatLng(parseFloat(kitchen[0]),parseFloat(kitchen[1])));
-      
+      src = new google.maps.LatLng(parseFloat(kitchen[0]),parseFloat(kitchen[1]));    
+      var gc = new google.maps.Geocoder();
+
+      gc.geocode({"location":src},function(result, sts){
+		      if(sts ===  google.maps.GeocoderStatus.OK){
+		      src= result[0].geometry.location;
+		      }
+		      });
+
+
       for(i=0;i<schools.length;i++){
    //      if(schools[i][0] or schools[i][1] ) {
    //        continue;
@@ -164,6 +180,9 @@ function processData(allText) {
     for (var i=1; i<allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
         if (data.length == headers.length) {
+            if(isNaN(parseInt(data[3]))) {console.log("Worked");continue;}
+            if(isNaN(parseInt(data[4]))) {continue;}
+
             if(output[data[7]] == undefined ) output[data[7]]={"schools":[],"kitchen":null}
             output[data[7]]["schools"].push([data[3],data[4]])
             output[data[7]]["kitchen"]=[data[9],data[10]]
