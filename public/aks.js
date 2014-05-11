@@ -83,6 +83,8 @@ function initialize() {
 			icon: myIcn1,
 			map: map });
                    map.setCenter(arr[0].geometry.location);
+                  var input1 = document.getElementById("pac-input");
+                 input.value ="";
 
 		}
 	        
