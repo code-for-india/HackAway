@@ -54,7 +54,7 @@ function initialize() {
 			//        if (i == dir.legs.length - 1 && mode == 0) {
 			//            myIcn1 = new google.maps.MarkerImage("iconsnew/black1.png");
 			//        } else {
-			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+3)+"|FF0000|FFFFFF");
+			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+(i).toString()+"|FF0000|FFFFFF");
 			//        }
 			var marker = new google.maps.Marker({
 					position: myPt1,
@@ -63,7 +63,7 @@ function initialize() {
 
 		}
        
- 			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+18)+"|FF0000|FFFFFF");       
+ 			myIcn1 = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld="+String.fromCharCode(65+18)+"|0000FF|FFFFFF");       
 			var marker = new google.maps.Marker({
 					position: src,
 					map: map,
